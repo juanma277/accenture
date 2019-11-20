@@ -1,0 +1,50 @@
+<div class="container-fluid">
+
+    <div class="row mt-10">
+        <div class="col text-right">
+            <button class="btn btn-primary w-20" routerLink="/videos">
+              <i class="fa fa-arrow-left"></i>
+                Regresar
+              </button>
+        </div>
+    </div>
+
+    <div class="row mt-10">
+        <div class="col text-left">
+            <samp style="font-weight: bold;">Total votos registrados: {{totalVotos}}</samp>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 mt-5" *ngFor="let voto of videosMap">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{voto.nombre}}</h5>
+                    <p class="card-text">{{voto.descripcion}}</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': voto.promedio + '%' }"></div>
+                    </div>
+                    <p class="card-text" style="font-weight: 600;">Promedio: {{voto.promedio | number: '.2-2'}}</p>
+                    <p class="card-text" style="font-weight: 600;"># Votantes: {{voto.cantidad}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && videosMap.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn slow">
+        <h4 class="alert-heading">¡No hay registros!</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x"></i>
+        </p>
+    </div>
+
+    <div *ngIf="loading" class="alert alert-info text-center mt-3 animated fadeIn slow">
+        <h4 class="alert-heading">Cargando</h4>
+        <p>
+            <i class="fa fa-spinner fa-spin fa-2x"></i>
+        </p>
+        <p class="mb-0">
+            ¡Espere por favor!
+        </p>
+    </div>
+</div>

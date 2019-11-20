@@ -1,0 +1,75 @@
+<div class="container-fluid">
+
+    <div class="row mt-10">
+        <div class="col text-right">
+            <button class="btn btn-primary" routerLink="/video/nuevo">
+            <i class="fa fa-plus"></i>
+              Agregar
+            </button>
+        </div>
+    </div>
+
+
+    <div class="table-hover table-responsive">
+        <table *ngIf="!loading && videos.length > 0" class="table mt-5 animated fadeIn slow">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Video</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let video of videos; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{video.nombre}}</td>
+                    <td>{{video.descripcion}}</td>
+                    <td>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" [src]="sanitizer.bypassSecurityTrustResourceUrl(video.video)" allowfullscreen></iframe>
+                        </div>
+                        <small class="form-text text-muted">{{video.video}}</small>
+                    </td>
+                    <td>
+                        <img id="myImg" [src]="video.imagenUrl" style="width:100%;max-width:210px;margin-top: 10px;" class="rounded mx-auto d-block">
+                        <small class="form-text text-muted">{{video.imagenUrl}}</small>
+                    </td>
+                    <td>
+                        <label *ngIf="video.estado" class="badge badge-success">Activo</label>
+                        <label *ngIf="!video.estado" class="badge badge-danger">Inactivo</label>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-info mr-1" [routerLink]="['/video', video.id]">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+
+                        <button class="btn btn-outline-danger" (click)="borrar(video, i)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="!loading && videos.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn slow">
+        <h4 class="alert-heading">¡No hay registros!</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x"></i>
+        </p>
+    </div>
+
+    <div *ngIf="loading" class="alert alert-info text-center mt-3 animated fadeIn slow">
+        <h4 class="alert-heading">Cargando</h4>
+        <p>
+            <i class="fa fa-spinner fa-spin fa-2x"></i>
+        </p>
+        <p class="mb-0">
+            ¡Espere por favor!
+        </p>
+    </div>
+</div>

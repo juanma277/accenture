@@ -1,0 +1,91 @@
+<div class="container-fluid">
+
+    <div class="row mt-5">
+        <div class="col text-right">
+            <button class="btn btn-primary w-20" routerLink="/videos">
+            <i class="fa fa-arrow-left"></i>
+              Regresar
+            </button>
+        </div>
+    </div>
+
+    <div class="row animated fadeIn slow">
+        <div class="col">
+            <form #f="ngForm" (ngSubmit)="guardar(f)">
+                <div class="form-group">
+                    <label>Firebase ID</label>
+                    <input type="text" class="form-control" disabled="disabled" placeholder="Firebase ID" name="id" [(ngModel)]="video.id">
+                    <small class="form-text text-muted">Este campo es generado automáticamente</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" name="nombre" [(ngModel)]="video.nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea rows="6" class="form-control" name="descripcion" [(ngModel)]="video.descripcion" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Imagen <small *ngIf="!editarImg && video.id" (click)="editarImg = !editarImg" class="form-text text-muted puntero">Clic aqui para seleccionar y cambiar imagen</small></label>
+                    <div *ngIf="editarImg || !video.id || archivo.length > 0" appNgDropFiles [archivo]="archivo" (mouseHover)="sobreElement = $event" class="well drop-zone" [ngClass]="{'file-over': sobreElement}">
+                        <small class="form-text text-muted">¡Arrastra una imagen aquí!</small>
+                    </div>
+                    <div>
+                        <img *ngIf="video.imagenUrl && !editarImg" id="myImg" [src]="video.imagenUrl" style="width:100%;max-width:300px;margin-top: 10px;" class="rounded mx-auto d-block">
+                    </div>
+                    <ng-container *ngFor="let imagen of archivo">
+                        <small class="form-text text-muted"><b style="color: green;">¡Imagen Seleccionada y lista para cargar!</b></small>
+                        <small class="form-text text-muted"><b>Nombre de Imagen:</b> {{ imagen.nombreArchivo }}</small>
+                        <small class="form-text text-muted"><b>Tamaño de Imagen:</b> {{ imagen.archivo.size / 1024 /1024 | number: '.2-2' }} MB</small>
+                        <!-- <div class="progress">
+                                <b>Progreso:</b>
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': archivo.progreso + '%' }"></div>
+                        </div> -->
+                    </ng-container>
+                </div>
+
+                <div class="form-group">
+                    <label>Vídeo</label>
+                    <input type="text" class="form-control" name="video" [(ngModel)]="video.video" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Estado</label>
+                    <br>
+
+                    <button *ngIf="video.estado" class="btn btn-outline-success w-50" type="button" (click)="video.estado = false">
+                      <i class="fa fa-check"></i>
+                      Activo
+                    </button>
+                    <button *ngIf="!video.estado" class="btn btn-outline-danger w-50" type="button" (click)="video.estado = true">
+                      <i class="fa fa-ban"></i>
+                      Inactivo
+                    </button>
+                </div>
+
+                <hr>
+
+                <div class="form-group text-right">
+                    <button class="btn btn-primary w-20 mr-2" routerLink="/videos">
+                        <i class="fa fa-arrow-left"></i>
+                        Cancelar
+                    </button>
+
+                    <button *ngIf="!video.id" type="submit" [disabled]="f.invalid || archivo.length === 0" class="btn btn-success w-20">
+                        <i class="fa fa-save"></i>
+                        Guardar
+                    </button>
+
+                    <button *ngIf="video.id" type="submit" [disabled]="f.invalid" class="btn btn-warning w-20">
+                        <i class="fa fa-save"></i>
+                        Actualizar
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" [routerLink]="[ '/home']">Intercolombia</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <!-- <li class="nav-item active">
+                                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                </li> -->
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          {{email}}
+                                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a *ngIf="localId === 'amBeXQbCU8Mm3UVblef7vINiPDx2' || localId === 'upIUWAmrfTQCt6bTTKrPiTwY9Sj2'" class="dropdown-item" [routerLink]="[ '/videos']"><i class="fa fa-video-camera"></i> Gestión Videos</a>
+                            <a *ngIf="localId === 'amBeXQbCU8Mm3UVblef7vINiPDx2' || localId === 'upIUWAmrfTQCt6bTTKrPiTwY9Sj2'" class="dropdown-item" [routerLink]="[ '/reportes']"><i class="fa  fa-bar-chart-o"></i> Reportes</a>
+                            <!-- <a class="dropdown-item" [routerLink]="[ '/users']"><i class="fa fa-users"></i> Gestion Usuarios</a> -->
+                            <div *ngIf="localId === 'amBeXQbCU8Mm3UVblef7vINiPDx2' || localId === 'upIUWAmrfTQCt6bTTKrPiTwY9Sj2'" class="dropdown-divider"></div>
+                            <a class="dropdown-item puntero" href="#" (click)="salir()"><i class="fa fa-power-off salir"></i> Salir</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
